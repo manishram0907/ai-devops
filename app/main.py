@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import redis
 
 app = FastAPI()
 
@@ -13,3 +14,13 @@ def health():
     return {
         "status": "healthy"
     }
+
+@app.get("/redis-test")
+def redis_test():
+    try:
+        r = redis.Redis(host="redis", port=6379)
+        r.set("assignment", "working")
+        value = r.get("assignment").decode()
+        return {"redis": value}
+    except Exception as e:
+        return {"error": str(e)}
