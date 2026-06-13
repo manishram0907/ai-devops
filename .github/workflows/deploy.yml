@@ -24,5 +24,4 @@ jobs:
           script: |
             cd ~/ai-devops
             git pull origin main
-            docker compose down
             docker compose up -d --build
